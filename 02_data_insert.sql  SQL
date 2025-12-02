@@ -1,0 +1,55 @@
+-- #############################################
+-- 02_data_insert.sql: COMANDOS INSERT PARA POVOAR TABELAS
+-- #############################################
+
+-- 1. INSERCAO EM VETERINARIO
+INSERT INTO VETERINARIO (nome_vet, crmv, telefone, especialidade) VALUES
+('Dr. João Silva', 'CRMV/SP-12345', '11988887777', 'Clínica Geral'),
+('Dra. Ana Costa', 'CRMV/SP-23456', '11977776666', 'Ortopedia'),
+('Dr. Pedro Alvares', 'CRMV/SP-34567', '11966665555', 'Dermatologia');
+
+-- 2. INSERCAO EM TUTOR
+INSERT INTO TUTOR (nome_tutor, cpf, telefone, email, endereco) VALUES
+('Mariana Santos', '11122233344', '11999991234', 'mariana@email.com', 'Rua das Flores, 100'),
+('Carlos Pereira', '22233344455', '11988884321', 'carlos@email.com', 'Avenida Central, 500'),
+('Julia Mendes', '33344455566', '11977775678', 'julia@email.com', 'Rua dos Pinheiros, 20');
+
+-- 3. INSERCAO EM ANIMAL
+INSERT INTO ANIMAL (fk_tutor, nome_animal, especie, raca, data_nasc, peso_atual) VALUES
+(1, 'Max', 'Cachorro', 'Golden Retriever', '2020-05-15', 30.50),
+(1, 'Mimi', 'Gato', 'Siamês', '2022-01-20', 4.10),
+(2, 'Thor', 'Cachorro', 'Pug', '2019-11-01', 9.80),
+(3, 'Frajola', 'Gato', 'SRD', '2021-03-10', 5.00);
+
+-- 4. INSERCAO EM CONSULTA
+INSERT INTO CONSULTA (fk_animal, fk_vet, data_hora, motivo_principal, status_consulta) VALUES
+(1, 1, '2025-11-28 10:00:00', 'Check-up anual', 'Concluída'),
+(3, 3, '2025-11-28 14:30:00', 'Coceira na pele', 'Concluída'),
+(2, 2, '2025-12-05 16:00:00', 'Dor na pata', 'Agendada'),
+(4, 1, '2025-12-05 11:00:00', 'Vacina', 'Agendada');
+
+-- 5. INSERCAO EM DIAGNOSTICO (Relacionado às CONSULTAs 1 e 2)
+INSERT INTO DIAGNOSTICO (fk_consulta, descricao_laudo, tratamento_prescrito) VALUES
+(1, 'Animal saudável, peso ideal.', 'Continuar dieta e exercícios.'),
+(2, 'Alergia alimentar leve.', 'Mudar ração para hipoalergênica.');
+
+-- 6. INSERCAO EM ITEM_ESTOQUE
+INSERT INTO ITEM_ESTOQUE (nome_item, tipo, quantidade_estoque, preco_venda) VALUES
+('Vacina V10', 'Medicamento', 50, 80.00),
+('Ração Hipoalergênica', 'Ração', 10, 150.00),
+('Remédio Anti-inflamatório', 'Medicamento', 30, 45.00);
+
+-- 7. INSERCAO EM CONSULTA_ITEM (Uso de itens na Consulta 2)
+INSERT INTO CONSULTA_ITEM (fk_consulta, fk_item, quantidade_utilizada) VALUES
+(2, 2, 1), -- Consulta 2 (Thor) usou 1 Ração Hipoalergênica
+(2, 3, 1); -- Consulta 2 (Thor) usou 1 Remédio Anti-inflamatório
+
+-- 8. INSERCAO EM VACINA
+INSERT INTO VACINA (nome_vacina, periodicidade_dias) VALUES
+('Antirrábica', 365),
+('V10', 365);
+
+-- 9. INSERCAO EM VACINACAO (Histórico de Vacinas)
+INSERT INTO VACINACAO (fk_animal, fk_vacina, data_aplicacao) VALUES
+(1, 2, '2024-11-20'), -- Max tomou V10 em 2024
+(3, 1, '2024-10-15'); -- Thor tomou Antirrábica em 2024
